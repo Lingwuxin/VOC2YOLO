@@ -9,7 +9,7 @@ VOC数据集转YOLO数据集
 
 ```
 vtoy=HandleVocData()
-vtoy(path='datasets_path',savepath='labels_savepath')
+vtoy(path='datasets_labels_path',savepath='labels_savepath')
 ```
 在遍历所有VOC格式的数据集标签后获取class.txt
 

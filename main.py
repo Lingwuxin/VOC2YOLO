@@ -9,7 +9,7 @@ from numpy import save
 
 class Data:
     def __init__(self) -> None:
-        self.high = None
+        self.heigh = None
         self.weigh = None
         self.type = None
         self.xmin = None
@@ -25,13 +25,13 @@ class Data:
 
     def getSize(self, size: list):
         self.weigh = float(size[0])
-        self.high = float(size[1])
+        self.heigh = float(size[1])
 
     def toLine(self) -> List[float]:
-        x = 1 / (self.xmax + self.xmin) / 2
-        y = 1 / (self.ymax + self.ymin) / 2
+        x = (self.xmax + self.xmin) / 2 / self.weigh
+        y = (self.ymax + self.ymin) / 2 / self.heigh
         w = (self.xmax - self.xmin) / self.weigh
-        h = (self.ymax - self.ymin) / self.high
+        h = (self.ymax - self.ymin) / self.heigh
         return [self.type, x, y, w, h]
 
 
@@ -109,7 +109,7 @@ class HandleVocData:
                     self.handle[child.tag](child)
                 if child.tag == "object":
                     self.data.weigh = self.weigh
-                    self.data.high = self.heigh
+                    self.data.heigh = self.heigh
                     self.saves.data_list.append(self.data)
                     self.data = Data()
             self.saves.save(savepath)
