@@ -1,7 +1,9 @@
+
 from datetime import date
 from typing import List
 import xml.etree.cElementTree as ET
-import os, sys
+import os
+import sys
 import glob
 
 from numpy import save
@@ -58,6 +60,7 @@ class SaveData:
 class HandleVocData:
     def __init__(self):
         self.class_txt_dict = {}
+        self.class_num_dict = {}
         self.file_paths = []
         self.handle = {
             "filename": self.getFileName,
@@ -84,6 +87,8 @@ class HandleVocData:
             if child.tag == "name":
                 if child.text not in self.class_txt_dict:
                     self.class_txt_dict[child.text] = len(self.class_txt_dict)
+                    self.class_num_dict[child.text] = 0
+                self.class_num_dict[child.text] += 1
                 self.data.type = self.class_txt_dict[child.text]
                 continue
             if child.tag == "bndbox":
@@ -107,10 +112,12 @@ class HandleVocData:
             for child in root.iter():
                 if child.tag in self.handle:
                     self.handle[child.tag](child)
-                if child.tag == "object":
+                if child.tag == "0":
                     self.data.weigh = self.weigh
                     self.data.heigh = self.heigh
                     self.saves.data_list.append(self.data)
                     self.data = Data()
+
             self.saves.save(savepath)
             self.saves = SaveData()
+        print(self.class_num_dict)
