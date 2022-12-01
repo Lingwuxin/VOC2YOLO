@@ -1,4 +1,4 @@
-VOC-to-YOLO
+VOC2YOLO
 ===
 VOC数据集转YOLO数据集
 ===
