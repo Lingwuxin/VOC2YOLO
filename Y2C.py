@@ -1,4 +1,3 @@
-
 from datetime import date
 from typing import List
 import xml.etree.cElementTree as ET
@@ -112,12 +111,11 @@ class HandleVocData:
             for child in root.iter():
                 if child.tag in self.handle:
                     self.handle[child.tag](child)
-                if child.tag == "0":
+                if child.tag == "object":
                     self.data.weigh = self.weigh
                     self.data.heigh = self.heigh
                     self.saves.data_list.append(self.data)
                     self.data = Data()
-
             self.saves.save(savepath)
             self.saves = SaveData()
         print(self.class_num_dict)
